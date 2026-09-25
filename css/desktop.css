@@ -1,0 +1,83 @@
+/* Desktop container filling the workspace */
+#desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 38px; /* Leave space for bottom taskbar */
+    background-color: #008080; /* Windows 98 classic teal */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    user-select: none;
+    overflow: hidden;
+}
+
+/* Vertical grid layout for desktop icons */
+#desktop-icons {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
+    height: calc(100% - 24px);
+    pointer-events: none;
+}
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 86px;
+    padding: 6px 4px 6px;
+    cursor: pointer;
+    border: 1px dotted transparent;
+    pointer-events: all;
+    border-radius: 2px;
+}
+
+.desktop-icon:hover {
+    background: rgba(0, 0, 128, 0.15);
+    border-color: rgba(0, 0, 128, 0.3);
+}
+
+.desktop-icon.selected {
+    background: rgba(10, 36, 106, 0.55);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.desktop-icon.selected .desktop-icon-label {
+    background: #0a246a;
+    color: #fff;
+}
+
+.desktop-icon-img {
+    width: 40px;
+    height: 40px;
+    image-rendering: pixelated;
+}
+
+.desktop-icon-label {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+    word-break: break-word;
+    line-height: 1.2;
+    padding: 1px 3px;
+    letter-spacing: 0;
+}
+
+/* Drag selection rectangle */
+.desktop-selection-box {
+    position: absolute;
+    border: 1px dotted #ffffff;
+    background: rgba(10, 36, 106, 0.25);
+    pointer-events: none;
+    z-index: 10;
+}
