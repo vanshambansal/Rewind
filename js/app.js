@@ -1,6 +1,10 @@
 import { Desktop } from './desktop.js';
+import { Taskbar } from './taskbar.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize taskbar and clock
+    Taskbar.init();
+
     // Initialize desktop icons and selection box
     Desktop.init();
 

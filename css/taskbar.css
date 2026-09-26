@@ -1,0 +1,213 @@
+/* === Taskbar === */
+
+#taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+    padding: 3px 4px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+/* ── Start Button ───────────────────────────────────────────── */
+
+#start-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 28px;
+    padding: 0 8px;
+    background: #c0c0c0;
+    border-top: 2px solid #dfdfdf;
+    border-left: 2px solid #dfdfdf;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    font-weight: 600;
+    font-size: 12px;
+    font-family: inherit;
+    color: #000;
+    flex-shrink: 0;
+    cursor: pointer;
+    letter-spacing: 0;
+}
+
+#start-button:hover {
+    background: #d4d0c8;
+}
+
+#start-button:active,
+#start-button.active {
+    border-top: 2px solid #404040;
+    border-left: 2px solid #404040;
+    border-right: 2px solid #dfdfdf;
+    border-bottom: 2px solid #dfdfdf;
+    padding-top: 2px;
+    padding-left: 9px;
+    padding-right: 7px;
+    background: #b0b0b0;
+}
+
+#start-button-icon {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+}
+
+/* ── Taskbar Divider (after Start button) ───────────────────── */
+
+#taskbar-divider {
+    width: 2px;
+    height: 26px;
+    margin: 0 4px;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    flex-shrink: 0;
+}
+
+/* ── Task Buttons ───────────────────────────────────────────── */
+
+#task-buttons {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.task-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 28px;
+    padding: 0 8px;
+    max-width: 180px;
+    min-width: 60px;
+    background: #c0c0c0;
+    border-top: 2px solid #dfdfdf;
+    border-left: 2px solid #dfdfdf;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    flex-shrink: 1;
+}
+
+.task-button.active {
+    background: #d4d0c8;
+    background-image: radial-gradient(#ffffff 15%, transparent 16%), radial-gradient(#ffffff 15%, transparent 16%);
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+    border-top: 2px solid #404040;
+    border-left: 2px solid #404040;
+    border-right: 2px solid #dfdfdf;
+    border-bottom: 2px solid #dfdfdf;
+    font-weight: 600;
+    padding-top: 2px;
+    padding-left: 9px;
+    padding-right: 7px;
+}
+
+.task-button-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+}
+
+.task-button-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: inherit;
+}
+
+/* ── System Tray Divider ────────────────────────────────────── */
+
+#tray-divider {
+    width: 2px;
+    height: 26px;
+    margin: 0 4px;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    flex-shrink: 0;
+}
+
+/* ── System Tray ────────────────────────────────────────────── */
+
+#system-tray {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 8px;
+    background: #c0c0c0;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+#system-tray:hover {
+    background: #d4d0c8;
+}
+
+#tray-sound {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    display: block;
+    pointer-events: auto !important;
+}
+
+#tray-sound:hover {
+    filter: brightness(1.25);
+}
+
+#tray-clock {
+    font-size: 11px;
+    color: #000;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: normal;
+    user-select: none;
+}
+
+#tray-clock:hover {
+    color: #0a246a;
+}
+
+/* ── Tray Popups (Volume & Calendar) ────────────────────────── */
+.tray-popup {
+    position: fixed;
+    bottom: 42px;
+    right: 8px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    z-index: 100000;
+    display: none;
+    font-size: 11px;
+}
+
+.tray-popup.open {
+    display: block;
+}
