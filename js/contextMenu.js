@@ -1,4 +1,6 @@
 import { Desktop } from './desktop.js';
+import { FileSystem } from './filesystem.js';
+import { WindowManager } from './windowManager.js';
 
 let isOpen = false;
 
@@ -104,7 +106,42 @@ export const ContextMenu = {
                 break;
 
             case 'new-folder':
+                WindowManager.showPrompt({
+                    title: 'New Folder',
+                    message: 'Enter folder name for Desktop:',
+                    defaultValue: 'New Folder',
+                    icon: '📁',
+                    onOk: async (name) => {
+                        try {
+                            const safe = await FileSystem.getUniqueName('C:', name || 'New Folder');
+                            await FileSystem.createFolder('C:', safe);
+                            Desktop.refresh();
+                        } catch (err) {
+                            WindowManager.showDialog({ title: 'Error', message: err.message, icon: '⚠️' });
+                        }
+                    }
+                });
+                break;
+
             case 'new-doc':
+                WindowManager.showPrompt({
+                    title: 'New Document',
+                    message: 'Enter file name for Desktop:',
+                    defaultValue: 'New Text Document.txt',
+                    icon: '📄',
+                    onOk: async (name) => {
+                        try {
+                            const safeName = name.endsWith('.txt') ? name : `${name}.txt`;
+                            const safe = await FileSystem.getUniqueName('C:', safeName);
+                            await FileSystem.createFile('C:', safe, '');
+                            Desktop.refresh();
+                        } catch (err) {
+                            WindowManager.showDialog({ title: 'Error', message: err.message, icon: '⚠️' });
+                        }
+                    }
+                });
+                break;
+
             case 'properties':
                 console.log(`Action ${action} triggered (Connecting in upcoming commits)`);
                 break;
