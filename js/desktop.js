@@ -139,6 +139,20 @@ export const Desktop = {
         });
     },
 
+    refresh() {
+        clearSelection();
+        this.renderIcons();
+    },
+
+    sortIcons(by = 'name') {
+        if (by === 'name') {
+            DESKTOP_ICONS.sort((a, b) => a.label.localeCompare(b.label));
+        } else if (by === 'type') {
+            DESKTOP_ICONS.sort((a, b) => a.id.localeCompare(b.id));
+        }
+        this.renderIcons();
+    },
+
     openApp(appId) {
         console.log(`Launching ${appId}... (App modules will connect in upcoming commits)`);
     }

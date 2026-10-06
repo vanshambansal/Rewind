@@ -1,0 +1,149 @@
+/* === Start Menu === */
+
+#start-menu {
+    position: fixed;
+    bottom: 38px; /* taskbar height */
+    left: 0;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #404040;
+    border-bottom: 0;
+    display: none;
+    z-index: 10000;
+    box-shadow: 2px -1px 4px rgba(0, 0, 0, 0.3);
+}
+
+#start-menu.open {
+    display: flex;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────── */
+
+#start-menu-sidebar {
+    width: 28px;
+    background: linear-gradient(to top, #0a246a, #3a6ea5);
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+}
+
+#start-menu-sidebar::after {
+    content: "REWIND";
+    color: #c0c0c0;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 3px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+/* ── Menu Items ─────────────────────────────────────────────── */
+
+#start-menu-items {
+    padding: 3px 0;
+    min-width: 210px;
+}
+
+.start-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 18px 6px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #000;
+    white-space: nowrap;
+}
+
+.start-menu-item:hover {
+    background: #0a246a;
+    color: #fff;
+}
+
+.start-menu-item img {
+    width: 22px;
+    height: 22px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.start-menu-separator {
+    height: 0;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #fff;
+    margin: 4px 6px;
+}
+
+
+/* === Context Menu === */
+
+#context-menu {
+    position: fixed;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    min-width: 180px;
+    display: none;
+    z-index: 10001;
+    padding: 3px 0;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.35);
+    user-select: none;
+}
+
+#context-menu.open {
+    display: block;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 16px 5px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #000;
+    white-space: nowrap;
+    position: relative;
+}
+
+.context-menu-item:hover {
+    background: #0a246a;
+    color: #fff;
+}
+
+.context-menu-item .menu-arrow {
+    font-size: 10px;
+    margin-left: 12px;
+}
+
+.context-menu-separator {
+    height: 0;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #fff;
+    margin: 3px 4px;
+}
+
+/* === Submenu === */
+.context-submenu {
+    position: absolute;
+    top: -2px;
+    left: 100%;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    min-width: 160px;
+    display: none;
+    padding: 3px 0;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.35);
+}
+
+.context-menu-item:hover > .context-submenu {
+    display: block;
+}
