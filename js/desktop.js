@@ -1,4 +1,5 @@
 import { Icons } from './icons.js';
+import { NotepadApp } from './apps/notepad.js';
 
 // Desktop icon definitions
 const DESKTOP_ICONS = [
@@ -154,6 +155,10 @@ export const Desktop = {
     },
 
     openApp(appId) {
+        if (appId === 'notepad') {
+            NotepadApp.open();
+            return;
+        }
         console.log(`Launching ${appId}... (App modules will connect in upcoming commits)`);
     }
 };

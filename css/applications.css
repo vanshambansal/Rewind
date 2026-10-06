@@ -1,0 +1,204 @@
+/* === Application Specific Styles === */
+
+/* ── Common App Menu Bar ────────────────────────────────────── */
+.app-menubar {
+    display: flex;
+    background: #c0c0c0;
+    border-bottom: 1px solid #808080;
+    padding: 2px 4px;
+    font-size: 11px;
+    font-weight: normal;
+    user-select: none;
+    flex-shrink: 0;
+    gap: 2px;
+}
+
+.app-menu-item {
+    padding: 2px 6px;
+    cursor: pointer;
+    color: #000;
+    border: 1px solid transparent;
+}
+
+.app-menu-item:hover {
+    background: #0a246a;
+    color: #fff;
+}
+
+/* ── Common App Toolbar ─────────────────────────────────────── */
+.app-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #c0c0c0;
+    border-bottom: 1px solid #808080;
+    padding: 3px 6px;
+    flex-shrink: 0;
+}
+
+.app-toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 7px;
+    height: 24px;
+    background: #c0c0c0;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #404040;
+    border-bottom: 1px solid #404040;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 1px 1px 0 #000;
+}
+
+.app-toolbar-btn:disabled {
+    opacity: 0.45;
+    cursor: default;
+    border: 1px solid transparent;
+    box-shadow: none;
+}
+
+.app-toolbar-btn:not(:disabled):active {
+    border-top: 1px solid #404040;
+    border-left: 1px solid #404040;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding-top: 3px;
+    padding-left: 8px;
+}
+
+.app-toolbar-btn img {
+    width: 16px;
+    height: 16px;
+    image-rendering: pixelated;
+}
+
+.app-toolbar-sep {
+    width: 2px;
+    height: 18px;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    margin: 0 3px;
+}
+
+/* ── Address Bar ────────────────────────────────────────────── */
+.app-addressbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #c0c0c0;
+    border-bottom: 1px solid #808080;
+    padding: 3px 6px;
+    font-size: 11px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.app-addressbar-label {
+    color: #404040;
+    font-weight: normal;
+}
+
+.app-addressbar-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding: 2px 6px;
+    gap: 6px;
+}
+
+.app-addressbar-icon {
+    width: 16px;
+    height: 16px;
+    image-rendering: pixelated;
+}
+
+.app-addressbar-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: normal;
+    background: transparent;
+    padding: 0;
+}
+
+/* ── File Explorer / My Computer ────────────────────────────── */
+.explorer-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #c0c0c0;
+}
+
+.explorer-view {
+    flex: 1;
+    background: #fff;
+    overflow-y: auto;
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
+}
+
+.explorer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    padding: 4px;
+    cursor: pointer;
+    border: 1px dotted transparent;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.explorer-item:hover {
+    background: #e4ecf8;
+}
+
+.explorer-item.selected {
+    background: #0a246a;
+    border-color: #ffd700;
+}
+
+.explorer-item.selected .explorer-item-name {
+    color: #fff;
+}
+
+.explorer-item-icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 3px;
+    image-rendering: pixelated;
+}
+
+.explorer-item-name {
+    font-size: 11px;
+    font-weight: normal;
+    color: #000;
+    word-break: break-word;
+    line-height: 1.2;
+    max-width: 76px;
+}
+
+.explorer-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #808080;
+    font-size: 12px;
+    font-style: italic;
+}
