@@ -1,0 +1,289 @@
+/* === Application Windows === */
+
+.window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #c0c0c0;
+    border-top: 2px solid #dfdfdf;
+    border-left: 2px solid #dfdfdf;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    box-shadow: 2px 2px 0 #000;
+    min-width: 240px;
+    min-height: 140px;
+}
+
+.window.minimized {
+    display: none !important;
+}
+
+.window.maximized {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-width: 0;
+    box-shadow: none;
+}
+
+/* ── Title Bar ──────────────────────────────────────────────── */
+
+.window-titlebar {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    padding: 2px 4px;
+    background: linear-gradient(180deg, #0a246a 0%, #3a6ea5 100%);
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.window:not(.focused) .window-titlebar {
+    background: linear-gradient(180deg, #808080 0%, #b0b0b0 100%);
+}
+
+.window-titlebar-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-titlebar-icon img {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+}
+
+.window-titlebar-text {
+    flex: 1;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 6px;
+    letter-spacing: 0;
+}
+
+.window:not(.focused) .window-titlebar-text {
+    color: #d4d0c8;
+}
+
+/* ── Title Bar Buttons ──────────────────────────────────────── */
+
+.window-titlebar-buttons {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.window-btn {
+    width: 22px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #c0c0c0;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #404040;
+    border-bottom: 1px solid #404040;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+}
+
+.window-btn:active {
+    border-top: 1px solid #404040;
+    border-left: 1px solid #404040;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding-top: 1px;
+    padding-left: 1px;
+}
+
+.window-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    border: 1px solid transparent;
+}
+
+.window-btn-close {
+    font-size: 14px;
+}
+
+/* ── Content Area ───────────────────────────────────────────── */
+
+.window-content {
+    flex: 1;
+    position: relative;
+    overflow: auto;
+    background: #c0c0c0;
+    min-height: 0;
+}
+
+/* ── Status Bar ─────────────────────────────────────────────── */
+
+.window-statusbar {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 6px;
+    background: #c0c0c0;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    font-size: 11px;
+    font-weight: normal;
+    color: #404040;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.window-statusbar-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── Dialog Box Styles ──────────────────────────────────────── */
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.dialog {
+    background: #c0c0c0;
+    border-top: 2px solid #dfdfdf;
+    border-left: 2px solid #dfdfdf;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    min-width: 300px;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-titlebar {
+    display: flex;
+    align-items: center;
+    height: 26px;
+    padding: 2px 4px;
+    background: linear-gradient(180deg, #0a246a 0%, #3a6ea5 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.dialog-titlebar-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dialog-titlebar-close {
+    width: 18px;
+    height: 18px;
+    background: #c0c0c0;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #404040;
+    border-bottom: 1px solid #404040;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.dialog-body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000;
+}
+
+.dialog-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.dialog-message {
+    flex: 1;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.dialog-input {
+    width: 100%;
+    margin-top: 8px;
+    padding: 4px;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: normal;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 12px 14px;
+}
+
+.dialog-btn {
+    min-width: 72px;
+    height: 24px;
+    background: #c0c0c0;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #404040;
+    border-bottom: 1px solid #404040;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 1px 1px 0 #000;
+}
+
+.dialog-btn:active {
+    border-top: 1px solid #404040;
+    border-left: 1px solid #404040;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding-top: 1px;
+    padding-left: 1px;
+}

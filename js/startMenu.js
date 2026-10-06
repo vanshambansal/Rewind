@@ -1,5 +1,6 @@
 import { Icons } from './icons.js';
 import { Desktop } from './desktop.js';
+import { WindowManager } from './windowManager.js';
 
 // Start menu items configuration
 const MENU_ITEMS = [
@@ -32,13 +33,21 @@ function close() {
 }
 
 function handleShutdown() {
-    const confirmed = confirm('Are you sure you want to shut down the computer?');
-    if (confirmed) {
-        const shutdownScreen = document.getElementById('shutdown-screen');
-        if (shutdownScreen) {
-            shutdownScreen.classList.add('active');
+    WindowManager.showDialog({
+        title: 'Shut Down',
+        message: 'Are you sure you want to shut down the computer?',
+        icon: '❓',
+        buttons: [
+            { label: 'OK', value: 'ok' },
+            { label: 'Cancel', value: 'cancel' },
+        ],
+        onButton(value) {
+            if (value === 'ok') {
+                const screen = document.getElementById('shutdown-screen');
+                if (screen) screen.classList.add('active');
+            }
         }
-    }
+    });
 }
 
 export const StartMenu = {
