@@ -166,6 +166,14 @@ const soundOn = svg(`
   <path d="M11,5 Q13.5,8 11,11" fill="none" stroke="#000" stroke-width="1.5"/>
 </svg>`);
 
+const soundMuted = svg(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <rect x="1" y="5" width="4" height="6" fill="#000" shape-rendering="crispEdges"/>
+  <polygon points="5,5 9,2 9,14 5,11" fill="#000"/>
+  <line x1="11" y1="6" x2="15" y2="10" stroke="#800000" stroke-width="1.5"/>
+  <line x1="15" y1="6" x2="11" y2="10" stroke="#800000" stroke-width="1.5"/>
+</svg>`);
+
 const shutdownIcon = svg(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" shape-rendering="auto">
   <path d="M10,5 A6,6 0 1,0 10.001,5" fill="none" stroke="#800000" stroke-width="2"/>
@@ -356,6 +364,7 @@ export const Icons = {
     calendar,
     startIcon,
     soundOn,
+    soundMuted,
     shutdownIcon,
     hardDrive,
     floppyDrive,

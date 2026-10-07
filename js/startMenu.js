@@ -1,6 +1,7 @@
 import { Icons } from './icons.js';
 import { Desktop } from './desktop.js';
 import { WindowManager } from './windowManager.js';
+import { SoundManager } from './soundManager.js';
 
 // Start menu items configuration
 const MENU_ITEMS = [
@@ -76,6 +77,7 @@ export const StartMenu = {
             `;
 
             div.addEventListener('click', () => {
+                SoundManager.playClick();
                 close();
                 if (item.id === 'shutdown') {
                     handleShutdown();
@@ -92,6 +94,7 @@ export const StartMenu = {
         if (startBtn) {
             startBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
+                SoundManager.playClick();
                 toggle();
             });
         }

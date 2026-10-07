@@ -1,4 +1,5 @@
 import { Icons } from './icons.js';
+import { SoundManager } from './soundManager.js';
 
 const taskButtons = new Map();
 let activeTrayPopup = null;
@@ -21,11 +22,18 @@ export const Taskbar = {
 
         // Set sound icon in system tray
         const soundIcon = document.getElementById('tray-sound');
+        const isSoundEnabled = SoundManager.isEnabled();
         if (soundIcon) {
-            soundIcon.src = Icons.soundOn;
+            soundIcon.src = isSoundEnabled ? Icons.soundOn : Icons.soundMuted;
+            soundIcon.style.opacity = isSoundEnabled ? '1' : '0.5';
+            soundIcon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                SoundManager.playClick();
+                this.toggleVolumePopup();
+            });
         }
 
-        // Create tray popups (Calendar)
+        // Create tray popups (Volume & Calendar)
         this.createTrayPopups();
 
         // Clicking clock toggles calendar popup
@@ -33,6 +41,7 @@ export const Taskbar = {
         if (clockEl) {
             clockEl.addEventListener('click', (e) => {
                 e.stopPropagation();
+                SoundManager.playClick();
                 this.toggleCalendarPopup();
             });
         }
@@ -50,10 +59,71 @@ export const Taskbar = {
     },
 
     createTrayPopups() {
+        // ── Volume Popup ──────────────────────────────────────────
+        const volumePopup = document.createElement('div');
+        volumePopup.className = 'tray-popup tray-volume-popup';
+        const curVol = SoundManager.getVolume();
+        const isEnabled = SoundManager.isEnabled();
+
+        volumePopup.innerHTML = `
+            <div style="padding:10px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:110px;user-select:none;">
+                <div style="font-weight:normal;font-size:11px;color:#000;">Volume: <span class="tray-vol-val">${curVol}%</span></div>
+                <input type="range" class="tray-volume-slider" min="0" max="100" value="${curVol}" style="height:90px;width:24px;writing-mode:vertical-lr;direction:rtl;cursor:pointer;accent-color:#0a246a;">
+                <label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;color:#000;">
+                    <input type="checkbox" class="tray-mute-check" ${isEnabled ? '' : 'checked'}> Mute
+                </label>
+            </div>
+        `;
+        document.body.appendChild(volumePopup);
+
+        const slider = volumePopup.querySelector('.tray-volume-slider');
+        const volVal = volumePopup.querySelector('.tray-vol-val');
+        const muteCheck = volumePopup.querySelector('.tray-mute-check');
+        const soundIcon = document.getElementById('tray-sound');
+
+        slider.addEventListener('input', () => {
+            const val = slider.value;
+            volVal.textContent = `${val}%`;
+            SoundManager.setVolume(val);
+            if (muteCheck.checked) {
+                muteCheck.checked = false;
+                SoundManager.setEnabled(true);
+                if (soundIcon) {
+                    soundIcon.src = Icons.soundOn;
+                    soundIcon.style.opacity = '1';
+                }
+            }
+        });
+
+        slider.addEventListener('change', () => {
+            SoundManager.playBlip(700);
+        });
+
+        muteCheck.addEventListener('change', () => {
+            const enabled = !muteCheck.checked;
+            SoundManager.setEnabled(enabled);
+            if (soundIcon) {
+                soundIcon.src = enabled ? Icons.soundOn : Icons.soundMuted;
+                soundIcon.style.opacity = enabled ? '1' : '0.5';
+            }
+        });
+
+        // ── Calendar Popup ────────────────────────────────────────
         const calendarPopup = document.createElement('div');
         calendarPopup.className = 'tray-popup tray-calendar-popup';
         document.body.appendChild(calendarPopup);
         this.renderCalendarPopup(calendarPopup);
+    },
+
+    toggleVolumePopup() {
+        const el = document.querySelector('.tray-volume-popup');
+        if (activeTrayPopup === el) {
+            closeTrayPopups();
+        } else {
+            closeTrayPopups();
+            el.classList.add('open');
+            activeTrayPopup = el;
+        }
     },
 
     renderCalendarPopup(container) {

@@ -1,4 +1,5 @@
 import { Taskbar } from './taskbar.js';
+import { SoundManager } from './soundManager.js';
 
 let zIndexCounter = 100;
 let cascadeOffset = 0;
@@ -281,6 +282,7 @@ export const WindowManager = {
      * Show a classic retro modal dialog.
      */
     showDialog({ title, message, icon = 'ℹ️', buttons = [{ label: 'OK', value: 'ok' }], onButton = null }) {
+        SoundManager.playAlert();
         const overlay = document.createElement('div');
         overlay.className = 'dialog-overlay';
 
@@ -322,6 +324,7 @@ export const WindowManager = {
      * Show a classic retro text input prompt dialog.
      */
     showPrompt({ title, message, defaultValue = '', icon = '📝', onOk = null, onCancel = null }) {
+        SoundManager.playAlert();
         const overlay = document.createElement('div');
         overlay.className = 'dialog-overlay';
 

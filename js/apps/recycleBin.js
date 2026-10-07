@@ -11,6 +11,7 @@
 import { Icons } from '../icons.js';
 import { FileSystem } from '../filesystem.js';
 import { WindowManager } from '../windowManager.js';
+import { SoundManager } from '../soundManager.js';
 
 export const RecycleBinApp = {
 

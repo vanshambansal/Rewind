@@ -1,6 +1,7 @@
 import { Desktop } from './desktop.js';
 import { FileSystem } from './filesystem.js';
 import { WindowManager } from './windowManager.js';
+import { SoundManager } from './soundManager.js';
 import { ControlPanelApp } from './apps/controlPanel.js';
 
 let isOpen = false;
@@ -78,6 +79,7 @@ export const ContextMenu = {
                 if (!action || item.querySelector('.context-submenu')) return;
 
                 e.stopPropagation();
+                SoundManager.playClick();
                 this.handleAction(action);
                 this.close();
             });

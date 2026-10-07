@@ -11,6 +11,7 @@ import { Icons } from '../icons.js';
 import { Storage } from '../storage.js';
 import { Desktop } from '../desktop.js';
 import { WindowManager } from '../windowManager.js';
+import { SoundManager } from '../soundManager.js';
 
 const WALLPAPER_PRESETS = [
     { id: 'landscape', name: 'Bliss (Rolling Hills)', url: 'assets/images/wallpapers/landscape.png' },

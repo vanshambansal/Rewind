@@ -1,6 +1,7 @@
 import { Icons } from './icons.js';
 import { Storage } from './storage.js';
 import { FileSystem } from './filesystem.js';
+import { SoundManager } from './soundManager.js';
 import { NotepadApp } from './apps/notepad.js';
 import { CalculatorApp } from './apps/calculator.js';
 import { MyComputerApp } from './apps/myComputer.js';
@@ -64,6 +65,7 @@ export const Desktop = {
             // Single click to select
             div.addEventListener('click', (e) => {
                 e.stopPropagation();
+                SoundManager.playClick();
                 selectIcon(div, e.ctrlKey || e.shiftKey);
             });
 
@@ -154,6 +156,7 @@ export const Desktop = {
     },
 
     refresh() {
+        SoundManager.playClick();
         clearSelection();
         this.renderIcons();
     },

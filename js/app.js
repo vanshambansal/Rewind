@@ -5,6 +5,7 @@ import { ContextMenu } from './contextMenu.js';
 import { WindowManager } from './windowManager.js';
 import { FileSystem } from './filesystem.js';
 import { Storage } from './storage.js';
+import { SoundManager } from './soundManager.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize persistent storage and virtual filesystem
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.WindowManager = WindowManager;
     window.StartMenu = StartMenu;
     window.ContextMenu = ContextMenu;
+    window.SoundManager = SoundManager;
 
     // Global keyboard shortcuts
     document.addEventListener('keydown', (e) => {
