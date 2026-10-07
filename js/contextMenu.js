@@ -1,6 +1,7 @@
 import { Desktop } from './desktop.js';
 import { FileSystem } from './filesystem.js';
 import { WindowManager } from './windowManager.js';
+import { ControlPanelApp } from './apps/controlPanel.js';
 
 let isOpen = false;
 
@@ -143,7 +144,7 @@ export const ContextMenu = {
                 break;
 
             case 'properties':
-                console.log(`Action ${action} triggered (Connecting in upcoming commits)`);
+                ControlPanelApp.open();
                 break;
         }
     },

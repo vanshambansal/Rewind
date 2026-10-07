@@ -1,9 +1,11 @@
 import { Icons } from './icons.js';
+import { Storage } from './storage.js';
 import { FileSystem } from './filesystem.js';
 import { NotepadApp } from './apps/notepad.js';
 import { CalculatorApp } from './apps/calculator.js';
 import { MyComputerApp } from './apps/myComputer.js';
 import { RecycleBinApp } from './apps/recycleBin.js';
+import { ControlPanelApp } from './apps/controlPanel.js';
 
 // Desktop icon definitions
 const DESKTOP_ICONS = [
@@ -36,6 +38,7 @@ export const Desktop = {
     async init() {
         await this.renderIcons();
         this.initRubberBandSelection();
+        this.loadWallpaper();
     },
 
     async renderIcons() {
@@ -184,6 +187,34 @@ export const Desktop = {
             RecycleBinApp.open();
             return;
         }
+        if (appId === 'control-panel') {
+            ControlPanelApp.open();
+            return;
+        }
         console.log(`Launching ${appId}... (App modules will connect in upcoming commits)`);
+    },
+
+    loadWallpaper() {
+        const desktop = document.getElementById('desktop');
+        if (!desktop) return;
+        const preset = Storage.getSetting('wallpaper_preset', 'landscape');
+        const custom = Storage.getSetting('wallpaper_custom', null);
+
+        if (preset === 'custom' && custom) {
+            desktop.style.backgroundColor = 'transparent';
+            desktop.style.backgroundImage = `url('${custom}')`;
+        } else if (preset === 'teal') {
+            desktop.style.backgroundImage = 'none';
+            desktop.style.backgroundColor = '#008080';
+        } else if (preset === 'classic-blue') {
+            desktop.style.backgroundImage = 'none';
+            desktop.style.backgroundColor = '#0a246a';
+        } else if (preset === 'midnight') {
+            desktop.style.backgroundImage = 'none';
+            desktop.style.backgroundColor = '#16192b';
+        } else {
+            desktop.style.backgroundColor = 'transparent';
+            desktop.style.backgroundImage = "url('assets/images/wallpapers/landscape.png')";
+        }
     }
 };
