@@ -1,7 +1,9 @@
 import { Icons } from './icons.js';
+import { FileSystem } from './filesystem.js';
 import { NotepadApp } from './apps/notepad.js';
 import { CalculatorApp } from './apps/calculator.js';
 import { MyComputerApp } from './apps/myComputer.js';
+import { RecycleBinApp } from './apps/recycleBin.js';
 
 // Desktop icon definitions
 const DESKTOP_ICONS = [
@@ -31,22 +33,27 @@ function clearSelection() {
 
 export const Desktop = {
 
-    init() {
-        this.renderIcons();
+    async init() {
+        await this.renderIcons();
         this.initRubberBandSelection();
     },
 
-    renderIcons() {
+    async renderIcons() {
         const container = document.getElementById('desktop-icons');
         if (!container) return;
         container.innerHTML = '';
 
+        // Dynamically choose Recycle Bin icon based on item count
+        const count = await FileSystem.getRecycleBinCount().catch(() => 0);
+        const recycleIcon = (count > 0) ? Icons.recycleBinFull : Icons.recycleBin;
+
         DESKTOP_ICONS.forEach(app => {
+            const currentIcon = (app.id === 'recycle-bin') ? recycleIcon : app.icon;
             const div = document.createElement('div');
             div.className = 'desktop-icon';
             div.dataset.appId = app.id;
             div.innerHTML = `
-                <img class="desktop-icon-img" src="${app.icon}" alt="${app.label}" draggable="false">
+                <img class="desktop-icon-img" src="${currentIcon}" alt="${app.label}" draggable="false">
                 <span class="desktop-icon-label">${app.label}</span>
             `;
 
@@ -171,6 +178,10 @@ export const Desktop = {
         }
         if (appId === 'calculator') {
             CalculatorApp.open();
+            return;
+        }
+        if (appId === 'recycle-bin') {
+            RecycleBinApp.open();
             return;
         }
         console.log(`Launching ${appId}... (App modules will connect in upcoming commits)`);
