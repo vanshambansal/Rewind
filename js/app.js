@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     StartMenu.init();
     ContextMenu.init();
 
+    window.Desktop = Desktop;
+    window.WindowManager = WindowManager;
+    window.StartMenu = StartMenu;
+    window.ContextMenu = ContextMenu;
+
     // Global keyboard shortcuts
     document.addEventListener('keydown', (e) => {
         // Alt + F4 -> Close active window

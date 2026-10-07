@@ -5,6 +5,7 @@
 import { Icons } from '../icons.js';
 import { FileSystem } from '../filesystem.js';
 import { WindowManager } from '../windowManager.js';
+import { NotepadApp } from './notepad.js';
 
 export const MyComputerApp = {
 
@@ -134,7 +135,8 @@ export const MyComputerApp = {
                     // Single click selection
                     div.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        SoundManager.playClick();
+                        if (typeof SoundManager !== 'undefined' && SoundManager.playClick) SoundManager.playClick();
+                        else if (window.SoundManager && window.SoundManager.playClick) window.SoundManager.playClick();
                         if (selectedItemEl) selectedItemEl.classList.remove('selected');
                         selectedItemEl = div;
                         selectedItemData = item;
@@ -154,9 +156,7 @@ export const MyComputerApp = {
                         if (item.type === 'folder') {
                             navigateTo(item.path);
                         } else if (item.name.endsWith('.txt')) {
-                            if (window.NotepadApp) {
-                                window.NotepadApp.open(item.path);
-                            }
+                            NotepadApp.open(item.path);
                         } else if (item.name.match(/\.(png|bmp|jpg|jpeg|gif)$/i)) {
                             if (window.PaintApp) {
                                 window.PaintApp.open(item.path);
@@ -206,7 +206,8 @@ export const MyComputerApp = {
                     if (val === 'yes') {
                         try {
                             await FileSystem.deleteEntry(selectedItemData.path);
-                            SoundManager.playTrash();
+                            if (typeof SoundManager !== 'undefined' && SoundManager.playTrash) SoundManager.playTrash();
+                            else if (window.SoundManager && window.SoundManager.playTrash) window.SoundManager.playTrash();
                             renderDirectory(currentPath);
                         } catch (err) {
                             WindowManager.showDialog({
@@ -331,3 +332,5 @@ export const MyComputerApp = {
         renderDirectory(startPath);
     }
 };
+
+window.MyComputerApp = MyComputerApp;

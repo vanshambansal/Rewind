@@ -9,11 +9,12 @@ import { ControlPanelApp } from './apps/controlPanel.js';
 
 // Desktop icon definitions
 const DESKTOP_ICONS = [
-    { id: 'my-computer',  label: 'My Computer',  icon: Icons.myComputer },
-    { id: 'my-documents', label: 'My Documents', icon: Icons.myDocuments },
-    { id: 'notepad',      label: 'Notepad',      icon: Icons.notepad },
-    { id: 'calculator',   label: 'Calculator',    icon: Icons.calculator },
-    { id: 'recycle-bin',  label: 'Recycle Bin',    icon: Icons.recycleBin },
+    { id: 'my-computer',   label: 'My Computer',   icon: Icons.myComputer },
+    { id: 'my-documents',  label: 'My Documents',  icon: Icons.myDocuments },
+    { id: 'notepad',       label: 'Notepad',        icon: Icons.notepad },
+    { id: 'calculator',    label: 'Calculator',      icon: Icons.calculator },
+    { id: 'control-panel', label: 'Control Panel',   icon: Icons.controlPanel },
+    { id: 'recycle-bin',   label: 'Recycle Bin',    icon: Icons.recycleBin },
 ];
 
 let selectedIcons = new Set();

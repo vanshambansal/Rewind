@@ -10,6 +10,8 @@ const MENU_ITEMS = [
     { id: 'notepad',       label: 'Notepad',        icon: Icons.notepad },
     { id: 'calculator',    label: 'Calculator',      icon: Icons.calculator },
     'separator',
+    { id: 'control-panel', label: 'Control Panel',   icon: Icons.controlPanel },
+    'separator',
     { id: 'shutdown',      label: 'Shut Down...',    icon: Icons.shutdownIcon },
 ];
 

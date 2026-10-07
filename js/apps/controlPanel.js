@@ -201,15 +201,37 @@ export const ControlPanelApp = {
         };
 
         // ── Sound Settings ───────────────────────────────────────
+        const isSoundEnabled = () => {
+            if (typeof SoundManager !== 'undefined' && SoundManager.isEnabled) return SoundManager.isEnabled();
+            if (window.SoundManager && window.SoundManager.isEnabled) return window.SoundManager.isEnabled();
+            return Storage.getSetting('sound_enabled', true);
+        };
+
+        const setSoundEnabled = (val) => {
+            Storage.setSetting('sound_enabled', !!val);
+            if (typeof SoundManager !== 'undefined' && SoundManager.setEnabled) SoundManager.setEnabled(val);
+            else if (window.SoundManager && window.SoundManager.setEnabled) window.SoundManager.setEnabled(val);
+        };
+
+        const playTestSound = () => {
+            if (typeof SoundManager !== 'undefined' && SoundManager.playChord) SoundManager.playChord();
+            else if (window.SoundManager && window.SoundManager.playChord) window.SoundManager.playChord();
+        };
+
+        const playClickSound = () => {
+            if (typeof SoundManager !== 'undefined' && SoundManager.playClick) SoundManager.playClick();
+            else if (window.SoundManager && window.SoundManager.playClick) window.SoundManager.playClick();
+        };
+
         const soundToggle = container.querySelector('.cp-sound-toggle');
-        soundToggle.checked = SoundManager.isEnabled();
+        soundToggle.checked = isSoundEnabled();
 
         soundToggle.addEventListener('change', () => {
-            SoundManager.setEnabled(soundToggle.checked);
+            setSoundEnabled(soundToggle.checked);
         });
 
         container.querySelector('.cp-test-sound-btn').addEventListener('click', () => {
-            SoundManager.playChord();
+            playTestSound();
         });
 
         // ── Live Clock ───────────────────────────────────────────
@@ -228,14 +250,14 @@ export const ControlPanelApp = {
         // Apply and OK buttons
         container.querySelector('.cp-btn-apply').addEventListener('click', () => {
             applyWallpaper();
-            SoundManager.setEnabled(soundToggle.checked);
-            SoundManager.playClick();
+            setSoundEnabled(soundToggle.checked);
+            playClickSound();
         });
 
         container.querySelector('.cp-btn-ok').addEventListener('click', () => {
             applyWallpaper();
-            SoundManager.setEnabled(soundToggle.checked);
-            SoundManager.playClick();
+            setSoundEnabled(soundToggle.checked);
+            playClickSound();
             WindowManager.closeWindow(id);
         });
 

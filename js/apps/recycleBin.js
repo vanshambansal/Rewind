@@ -128,6 +128,16 @@ export const RecycleBinApp = {
             }
         };
 
+        const playTrash = () => {
+            if (typeof SoundManager !== 'undefined' && SoundManager.playTrash) SoundManager.playTrash();
+            else if (window.SoundManager && window.SoundManager.playTrash) window.SoundManager.playTrash();
+        };
+
+        const playChord = () => {
+            if (typeof SoundManager !== 'undefined' && SoundManager.playChord) SoundManager.playChord();
+            else if (window.SoundManager && window.SoundManager.playChord) window.SoundManager.playChord();
+        };
+
         const doEmptyBin = () => {
             WindowManager.showDialog({
                 title: 'Confirm File Delete',
@@ -140,7 +150,7 @@ export const RecycleBinApp = {
                 onButton: async (val) => {
                     if (val === 'yes') {
                         await FileSystem.emptyRecycleBin();
-                        SoundManager.playTrash();
+                        playTrash();
                         renderList();
                     }
                 }
@@ -159,7 +169,7 @@ export const RecycleBinApp = {
 
             try {
                 await FileSystem.restoreEntry(selectedData.id);
-                SoundManager.playChord();
+                playChord();
                 renderList();
             } catch (err) {
                 WindowManager.showDialog({
@@ -191,7 +201,7 @@ export const RecycleBinApp = {
                 onButton: async (val) => {
                     if (val === 'yes') {
                         await FileSystem.permanentDelete(selectedData.id);
-                        SoundManager.playTrash();
+                        playTrash();
                         renderList();
                     }
                 }
