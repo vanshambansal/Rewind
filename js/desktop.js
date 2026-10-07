@@ -1,6 +1,7 @@
 import { Icons } from './icons.js';
 import { NotepadApp } from './apps/notepad.js';
 import { CalculatorApp } from './apps/calculator.js';
+import { MyComputerApp } from './apps/myComputer.js';
 
 // Desktop icon definitions
 const DESKTOP_ICONS = [
@@ -156,6 +157,14 @@ export const Desktop = {
     },
 
     openApp(appId) {
+        if (appId === 'my-computer') {
+            MyComputerApp.open('C:', 'my-computer');
+            return;
+        }
+        if (appId === 'my-documents') {
+            MyComputerApp.open('C:/My Documents', 'my-documents');
+            return;
+        }
         if (appId === 'notepad') {
             NotepadApp.open();
             return;
