@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Properties - Rewind 98</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/desktop.css">
+    <link rel="stylesheet" href="css/windows.css">
+
+    <style>
+        body {
+            background-color: #008080;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'MS Sans Serif', Tahoma, sans-serif;
+            font-size: 11px;
+            color: #000;
+        }
+
+        .sys-dialog {
+            width: 440px;
+            max-width: 100%;
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            box-shadow: 2px 2px 0 #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sys-titlebar {
+            height: 20px;
+            background: linear-gradient(90deg, #0a246a, #a6caf0);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .sys-body {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sys-groupbox {
+            background: #c0c0c0;
+            border: 1px solid #808080;
+            padding: 12px 14px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .sys-groupbox-title {
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: #c0c0c0;
+            padding: 0 4px;
+            font-weight: bold;
+            color: #000080;
+        }
+
+        .sys-row {
+            display: flex;
+            margin-bottom: 4px;
+        }
+
+        .sys-label {
+            width: 120px;
+            color: #404040;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .sys-val {
+            color: #000;
+        }
+
+        .retro-btn {
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            padding: 4px 16px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            box-shadow: 1px 1px 0 #000;
+            text-decoration: none;
+            color: #000;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+        }
+
+        .retro-btn:active {
+            border-top: 2px solid #404040;
+            border-left: 2px solid #404040;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sys-dialog">
+        <!-- Titlebar -->
+        <div class="sys-titlebar">
+            <span>🖥️ System Properties</span>
+            <a href="./" style="color:#fff;text-decoration:none;font-weight:bold;padding:0 4px;" title="Close and return to desktop">✕</a>
+        </div>
+
+        <!-- Body -->
+        <div class="sys-body">
+            
+            <!-- Top Section: System Header with Retro Logo -->
+            <div style="display:flex;gap:16px;align-items:center;">
+                <!-- Classic Windows 98 4-color Logo -->
+                <div style="flex-shrink:0;">
+                    <svg width="60" height="60" viewBox="0 0 32 32">
+                        <rect x="2" y="2" width="13" height="13" fill="#ff4500"/>
+                        <rect x="17" y="2" width="13" height="13" fill="#228b22"/>
+                        <rect x="2" y="17" width="13" height="13" fill="#008080"/>
+                        <rect x="17" y="17" width="13" height="13" fill="#ffd700"/>
+                    </svg>
+                </div>
+                <div>
+                    <div style="font-size:14px;font-weight:bold;color:#0a246a;">Rewind 98</div>
+                    <div style="color:#404040;margin-top:2px;">Second Edition</div>
+                    <div style="color:#666;">Version 4.10.1998</div>
+                </div>
+            </div>
+
+            <!-- Group Box 1: Registration Details -->
+            <div class="sys-groupbox">
+                <div class="sys-groupbox-title">Registered to:</div>
+                <div style="font-weight:bold;color:#000;font-size:12px;">Vansham Bansal</div>
+                <div style="color:#555;margin-top:2px;">Personal Computer</div>
+            </div>
+
+            <!-- Group Box 2: Computer & Environment -->
+            <div class="sys-groupbox">
+                <div class="sys-groupbox-title">Computer:</div>
+                <div class="sys-row">
+                    <span class="sys-label">Environment:</span>
+                    <span class="sys-val">Web Desktop Simulation</span>
+                </div>
+                <div class="sys-row">
+                    <span class="sys-label">Display:</span>
+                    <span class="sys-val" id="spec-screen">1920 &times; 1080</span>
+                </div>
+                <div class="sys-row">
+                    <span class="sys-label">Storage:</span>
+                    <span class="sys-val">Virtual C: Drive (My Documents)</span>
+                </div>
+                <div class="sys-row">
+                    <span class="sys-label">Audio:</span>
+                    <span class="sys-val">System Sound Effects</span>
+                </div>
+                <div class="sys-row">
+                    <span class="sys-label">Installed Tools:</span>
+                    <span class="sys-val">My Computer, Notepad, Calculator, Control Panel, Recycle Bin</span>
+                </div>
+            </div>
+
+            <!-- Bottom Row: Navigation Action -->
+            <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:4px;">
+                <a href="./" class="retro-btn">
+                    <span>&#129044;</span>
+                    <span>Back to Desktop</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Set screen resolution dynamically from browser
+        document.addEventListener('DOMContentLoaded', () => {
+            const screenEl = document.getElementById('spec-screen');
+            if (screenEl && window.screen) {
+                screenEl.textContent = `${window.screen.width} × ${window.screen.height}`;
+            }
+        });
+    </script>
+</body>
+</html>

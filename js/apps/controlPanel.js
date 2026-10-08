@@ -35,9 +35,10 @@ export const ControlPanelApp = {
                 <div class="controlpanel-container" id="${id}-container" style="display:flex;flex-direction:column;height:100%;background:#c0c0c0;padding:8px;font-size:11px;user-select:none;box-sizing:border-box;">
                     <!-- Tabs -->
                     <div style="display:flex;gap:2px;margin-bottom:0;z-index:2;">
-                        <button class="cp-tab-btn active" data-tab="display" style="padding:3px 12px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;font-weight:bold;">Display</button>
-                        <button class="cp-tab-btn" data-tab="sounds" style="padding:3px 12px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;">Sounds</button>
-                        <button class="cp-tab-btn" data-tab="datetime" style="padding:3px 12px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;">Date & Time</button>
+                        <button class="cp-tab-btn active" data-tab="display" style="padding:3px 8px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;font-weight:bold;">Display</button>
+                        <button class="cp-tab-btn" data-tab="sounds" style="padding:3px 8px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;">Sounds</button>
+                        <button class="cp-tab-btn" data-tab="datetime" style="padding:3px 8px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;">Date & Time</button>
+                        <button class="cp-tab-btn" data-tab="system" style="padding:3px 8px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #404040;border-bottom:none;cursor:pointer;">System</button>
                     </div>
 
                     <!-- Tab Content Panel -->
@@ -90,12 +91,35 @@ export const ControlPanelApp = {
                             <div style="font-size:13px;color:#333;" class="cp-live-date">Friday, August 21, 2026</div>
                             <div style="font-size:11px;color:#777;">Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'System Local'}</div>
                         </div>
+
+                        <!-- System Tab -->
+                        <div class="cp-tab-content tab-system" style="display:none;flex-direction:column;gap:12px;height:100%;box-sizing:border-box;">
+                            <div style="display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:1px solid #808080;">
+                                <div style="font-size:32px;">🖥️</div>
+                                <div>
+                                    <div style="font-weight:bold;font-size:12px;color:#0a246a;">Rewind 98 Operating System</div>
+                                    <div style="color:#555;">Second Edition</div>
+                                </div>
+                            </div>
+                            <div style="line-height:1.8;color:#222;flex:1;padding-top:4px;">
+                                <div><strong>Registered to:</strong> Vansham Bansal</div>
+                                <div><strong>Computer:</strong> Personal Computer</div>
+                                <div><strong>System Type:</strong> Web-based Desktop Simulation</div>
+                                <div><strong>Installed Tools:</strong> My Computer, Notepad, Calculator, Control Panel, Recycle Bin</div>
+                            </div>
+                            <div style="border-top:1px solid #fff;border-bottom:1px solid #808080;margin:4px 0;"></div>
+                            <div style="display:flex;justify-content:flex-end;align-items:center;">
+                                <a href="system.html" style="background:#c0c0c0;border-top:1px solid #fff;border-left:1px solid #fff;border-right:1px solid #404040;border-bottom:1px solid #404040;padding:4px 12px;cursor:pointer;text-decoration:none;color:#000;font-weight:bold;display:inline-flex;align-items:center;gap:4px;box-shadow:1px 1px 0 #000;">
+                                    <span>View System Details ↗</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Bottom Action Buttons -->
                     <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:8px;">
                         <button class="cp-btn-ok" style="background:#c0c0c0;border-top:1px solid #fff;border-left:1px solid #fff;border-right:1px solid #404040;border-bottom:1px solid #404040;min-width:64px;height:22px;cursor:pointer;font-weight:bold;">OK</button>
-                        <button class="cp-btn-apply" style="background:#c0c0c0;border-top:1px solid #fff;border-left:1px solid #fff;border-right:1px solid #404040;border-bottom:1px solid #404040;min-width:64px;height:22px;cursor:pointer;">Apply</button>
+                        <button class="cp-btn-cancel" style="background:#c0c0c0;border-top:1px solid #fff;border-left:1px solid #fff;border-right:1px solid #404040;border-bottom:1px solid #404040;min-width:64px;height:22px;cursor:pointer;">Cancel</button>
                     </div>
                 </div>
             `
@@ -248,19 +272,21 @@ export const ControlPanelApp = {
         updateClock();
         const clockInterval = setInterval(updateClock, 1000);
 
-        // Apply and OK buttons
-        container.querySelector('.cp-btn-apply').addEventListener('click', () => {
-            applyWallpaper();
-            setSoundEnabled(soundToggle.checked);
-            playClickSound();
-        });
-
+        // OK and Cancel buttons
         container.querySelector('.cp-btn-ok').addEventListener('click', () => {
             applyWallpaper();
             setSoundEnabled(soundToggle.checked);
             playClickSound();
             WindowManager.closeWindow(id);
         });
+
+        const cancelBtn = container.querySelector('.cp-btn-cancel');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                playClickSound();
+                WindowManager.closeWindow(id);
+            });
+        }
 
         // Cleanup clock interval on window close
         const observer = new MutationObserver(() => {
