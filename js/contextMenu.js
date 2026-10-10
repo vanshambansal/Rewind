@@ -22,12 +22,17 @@ export const ContextMenu = {
             this.open(e.clientX, e.clientY);
         });
 
-        // Close menu when clicking anywhere outside
+        // Close menu when clicking or tapping anywhere outside
         document.addEventListener('mousedown', (e) => {
             if (!e.target.closest('#context-menu')) {
                 this.close();
             }
         });
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('#context-menu')) {
+                this.close();
+            }
+        }, { passive: true });
     },
 
     open(x, y) {
@@ -63,8 +68,10 @@ export const ContextMenu = {
         menu.style.display = 'block';
         const menuW = 180;
         const menuH = 190;
-        const posX = (x + menuW > window.innerWidth) ? (x - menuW) : x;
-        const posY = (y + menuH > window.innerHeight - 38) ? (y - menuH) : y;
+        const rawX = (x + menuW > window.innerWidth) ? (x - menuW) : x;
+        const rawY = (y + menuH > window.innerHeight - 38) ? (y - menuH) : y;
+        const posX = Math.max(4, Math.min(rawX, window.innerWidth - menuW - 4));
+        const posY = Math.max(4, Math.min(rawY, window.innerHeight - 38 - menuH));
 
         menu.style.left = `${posX}px`;
         menu.style.top = `${posY}px`;

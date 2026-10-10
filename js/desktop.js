@@ -76,6 +76,20 @@ export const Desktop = {
                 this.openApp(app.id);
             });
 
+            // Touch device double-tap support
+            let lastTapTime = 0;
+            div.addEventListener('touchend', (e) => {
+                const currentTime = Date.now();
+                const tapInterval = currentTime - lastTapTime;
+                if (tapInterval < 400 && tapInterval > 50) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    clearSelection();
+                    this.openApp(app.id);
+                }
+                lastTapTime = currentTime;
+            }, { passive: false });
+
             container.appendChild(div);
         });
     },

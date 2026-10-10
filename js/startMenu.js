@@ -99,12 +99,17 @@ export const StartMenu = {
             });
         }
 
-        // Close when clicking anywhere outside
+        // Close when clicking or tapping anywhere outside
         document.addEventListener('mousedown', (e) => {
             if (!e.target.closest('#start-menu') && !e.target.closest('#start-button')) {
                 close();
             }
         });
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('#start-menu') && !e.target.closest('#start-button')) {
+                close();
+            }
+        }, { passive: true });
     },
 
     close

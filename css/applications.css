@@ -3,6 +3,7 @@
 /* ── Common App Menu Bar ────────────────────────────────────── */
 .app-menubar {
     display: flex;
+    flex-wrap: wrap;
     background: #c0c0c0;
     border-bottom: 1px solid #808080;
     padding: 2px 4px;
@@ -28,6 +29,7 @@
 /* ── Common App Toolbar ─────────────────────────────────────── */
 .app-toolbar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 4px;
     background: #c0c0c0;
@@ -201,4 +203,22 @@
     color: #808080;
     font-size: 12px;
     font-style: italic;
+}
+
+/* ── Mobile & Narrow Screens Responsive Rules ────────────────── */
+@media (max-width: 600px) {
+    .cp-tab-btn {
+        padding: 3px 5px !important;
+        font-size: 10px !important;
+    }
+    .explorer-view {
+        padding: 6px;
+        gap: 6px;
+    }
+    .explorer-item {
+        width: 70px;
+    }
+    .explorer-item-name {
+        font-size: 10px;
+    }
 }

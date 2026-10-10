@@ -11,6 +11,7 @@
     background-repeat: no-repeat;
     user-select: none;
     overflow: hidden;
+    touch-action: manipulation;
 }
 
 /* Vertical grid layout for desktop icons */
@@ -37,6 +38,7 @@
     border: 1px dotted transparent;
     pointer-events: all;
     border-radius: 2px;
+    touch-action: manipulation;
 }
 
 .desktop-icon:hover {
@@ -81,3 +83,24 @@
     pointer-events: none;
     z-index: 10;
 }
+
+/* ── Mobile & Narrow Screens Responsive Rules ────────────────── */
+@media (max-width: 600px) {
+    #desktop-icons {
+        top: 8px;
+        left: 8px;
+        gap: 6px;
+    }
+    .desktop-icon {
+        width: 74px;
+        padding: 4px 2px;
+    }
+    .desktop-icon-img {
+        width: 34px;
+        height: 34px;
+    }
+    .desktop-icon-label {
+        font-size: 11px;
+    }
+}
+

@@ -211,3 +211,27 @@
 .tray-popup.open {
     display: block;
 }
+
+/* ── Mobile & Narrow Screens Responsive Rules ────────────────── */
+@media (max-width: 600px) {
+    .task-button {
+        max-width: 90px;
+        min-width: 36px;
+        padding: 0 4px;
+    }
+    .task-button-label {
+        font-size: 10px;
+    }
+    #system-tray {
+        padding: 0 4px;
+        gap: 3px;
+    }
+    #tray-clock {
+        font-size: 10px;
+        padding-left: 2px;
+    }
+    .tray-popup {
+        right: 4px;
+        max-width: calc(100vw - 12px);
+    }
+}

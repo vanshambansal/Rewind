@@ -12,6 +12,9 @@
     box-shadow: 2px 2px 0 #000;
     min-width: 240px;
     min-height: 140px;
+    max-width: calc(100vw - 12px);
+    max-height: calc(100vh - 46px);
+    box-sizing: border-box;
 }
 
 .window.minimized {
@@ -37,6 +40,7 @@
     background: linear-gradient(180deg, #0a246a 0%, #3a6ea5 100%);
     flex-shrink: 0;
     user-select: none;
+    touch-action: none;
 }
 
 .window:not(.focused) .window-titlebar {
@@ -286,4 +290,24 @@
     border-bottom: 1px solid #fff;
     padding-top: 1px;
     padding-left: 1px;
+}
+
+/* ── Mobile & Narrow Screens Responsive Rules ────────────────── */
+@media (max-width: 600px) {
+    .window {
+        min-width: 200px;
+        min-height: 120px;
+    }
+    .window-titlebar {
+        height: 30px;
+    }
+    .window-btn {
+        width: 24px;
+        height: 22px;
+        font-size: 13px;
+    }
+    .dialog {
+        max-width: calc(100vw - 20px) !important;
+        box-sizing: border-box;
+    }
 }

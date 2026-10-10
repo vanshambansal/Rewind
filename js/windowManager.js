@@ -21,16 +21,29 @@ export const WindowManager = {
             return s.element;
         }
 
-        // Calculate cascading position for newly opened window
-        cascadeOffset = (cascadeOffset + OFFSET_STEP) % MAX_OFFSET;
-        const left = Math.min(60 + cascadeOffset, window.innerWidth - width - 20);
-        const top = Math.min(30 + cascadeOffset, window.innerHeight - height - 60);
+        // Calculate responsive window dimensions
+        const maxAvailW = window.innerWidth;
+        const maxAvailH = window.innerHeight - 44; // taskbar height + padding
+        const winWidth = Math.min(width, Math.max(220, maxAvailW - 16));
+        const winHeight = Math.min(height, Math.max(140, maxAvailH - 16));
+
+        // On mobile / narrow screens (<= 640px), position neatly
+        const isMobile = maxAvailW <= 640;
+        let left, top;
+        if (isMobile) {
+            left = Math.max(6, Math.floor((maxAvailW - winWidth) / 2));
+            top = Math.max(6, 12);
+        } else {
+            cascadeOffset = (cascadeOffset + OFFSET_STEP) % MAX_OFFSET;
+            left = Math.max(10, Math.min(60 + cascadeOffset, maxAvailW - winWidth - 20));
+            top = Math.max(10, Math.min(30 + cascadeOffset, maxAvailH - winHeight - 20));
+        }
 
         // Build window DOM element
         const win = document.createElement('div');
         win.className = 'window focused';
         win.dataset.windowId = id;
-        win.style.cssText = `left:${Math.max(10, left)}px;top:${Math.max(10, top)}px;width:${width}px;height:${height}px;`;
+        win.style.cssText = `left:${left}px;top:${top}px;width:${winWidth}px;height:${winHeight}px;`;
         zIndexCounter++;
         win.style.zIndex = zIndexCounter;
 
@@ -70,15 +83,20 @@ export const WindowManager = {
         };
         windows.set(id, state);
 
-        // Focus window on click
+        // Focus window on click / touch
         win.addEventListener('mousedown', () => this.focusWindow(id));
+        win.addEventListener('touchstart', () => this.focusWindow(id), { passive: true });
 
-        // Title bar drag handling
+        // Title bar drag handling (mouse + touch)
         const titlebar = win.querySelector('.window-titlebar');
         titlebar.addEventListener('mousedown', (e) => {
             if (e.target.closest('.window-btn')) return;
             this.startDrag(id, e);
         });
+        titlebar.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.window-btn')) return;
+            this.startDrag(id, e);
+        }, { passive: false });
 
         // Double click title bar to toggle maximize
         if (allowMaximize) {
@@ -248,16 +266,22 @@ export const WindowManager = {
         const state = windows.get(id);
         if (!state || state.maximized) return;
 
-        e.preventDefault();
+        const isTouch = e.type.startsWith('touch');
+        const point = isTouch ? e.touches[0] : e;
+        if (!point) return;
+
+        if (e.cancelable) e.preventDefault();
         const win = state.element;
-        const startX = e.clientX;
-        const startY = e.clientY;
+        const startX = point.clientX;
+        const startY = point.clientY;
         const startLeft = win.offsetLeft;
         const startTop = win.offsetTop;
 
         const onMove = (ev) => {
-            const rawLeft = startLeft + ev.clientX - startX;
-            const rawTop = startTop + ev.clientY - startY;
+            const p = ev.type.startsWith('touch') ? ev.touches[0] : ev;
+            if (!p) return;
+            const rawLeft = startLeft + p.clientX - startX;
+            const rawTop = startTop + p.clientY - startY;
 
             // Clamping so window title bar cannot be dragged off screen
             const minTop = 0;
@@ -272,10 +296,16 @@ export const WindowManager = {
         const onUp = () => {
             document.removeEventListener('mousemove', onMove);
             document.removeEventListener('mouseup', onUp);
+            document.removeEventListener('touchmove', onMove);
+            document.removeEventListener('touchend', onUp);
+            document.removeEventListener('touchcancel', onUp);
         };
 
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup', onUp);
+        document.addEventListener('touchmove', onMove, { passive: false });
+        document.addEventListener('touchend', onUp);
+        document.addEventListener('touchcancel', onUp);
     },
 
     /**
